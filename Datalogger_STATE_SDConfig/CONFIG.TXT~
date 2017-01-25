@@ -1,0 +1,9 @@
+[CONFIG=TRUE] // TRUE = process these settings, FALSE = ignore
+[YEAR=16] // Do not include "20" for year, just the last 2 digits
+[MONTH=7]
+[DAY=6]
+[HOURS=13]
+[MINUTES=21]
+[SECONDS=0]
+[SLEEP=TRUE] // TRUE or FALSE
+[INTERVAL=4] // Awake every X minutes

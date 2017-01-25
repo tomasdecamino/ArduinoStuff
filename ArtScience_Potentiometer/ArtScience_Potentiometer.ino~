@@ -1,0 +1,16 @@
+#include <Adafruit_CircuitPlayground.h>
+int count = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(A9, INPUT);
+  CircuitPlayground.begin();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int val = map(analogRead(A9),0,1023,0,255);
+  count=(count+1)%10;
+  CircuitPlayground.setPixelColor(count, CircuitPlayground.colorWheel(val));
+}
+

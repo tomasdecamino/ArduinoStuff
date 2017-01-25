@@ -1,0 +1,16 @@
+#include <RobotKit.h>
+
+void setup() {
+  // put your setup code here, to run once:
+  setMotors();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  forward(100,500);
+  pivotLeft(100,500);
+  pivotRight(100,500);
+  stopMotors();
+  delay(500);
+
+}
