@@ -40,7 +40,16 @@ void loop() {
   float x = c*cos(beta+(angle1*PI/180));
   float y = c*sin(beta+(angle1*PI/180));
   
-  //send results to serial
+  //calibration to serial (uncomment for calibration)
+  //Serial.print(val1);
+  //Serial.print(",");
+  //Serial.print(angle1);
+  //Serial.print(",");
+  //Serial.print(val2);
+  //Serial.print(",");
+  //Serial.println(angle2);
+  
+  //coordinates to serial (comment for cailbration)
   Serial.print(x);
   Serial.print(",");
   Serial.println(y);
