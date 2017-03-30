@@ -74,7 +74,9 @@ void setup() {
   pinMode(BIT2B, OUTPUT);
   pinMode(BIT3B, OUTPUT);
   pinMode(A0, INPUT);
-  pinMode(A5, INPUT);
+  pinMode(A3, INPUT);
+  pinMode(A4, INPUT);
+  pinMode(A5, INPUT);  
   Serial.begin(9600);
 }
 
@@ -82,8 +84,10 @@ void loop() {
   // put your main code here, to run repeatedly:
   int s = map(analogRead(A0), 0, 1023, 1, 100);
   int mod = map(analogRead(A5), 0, 1023, 0, 10);
-  stepWave(sintab[tempo]);
-  stepWaveB(sintab[tempo]+mod);
+  int mod2 = map(analogRead(A4), 0, 1023, 1, 10);
+  int mod3 = map(analogRead(A3), 0, 1023, 1, 10);
+  stepWave(sintab[tempo]*mod3);
+  stepWaveB(sintab[tempo]+mod*mod2);
   tempo = (tempo + s) % 500;
   //tempo2=(tempo+s + mod)%500;
 }
