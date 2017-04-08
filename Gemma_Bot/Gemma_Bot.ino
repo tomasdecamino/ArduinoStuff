@@ -1,4 +1,4 @@
-#define M1 200 //mas para RC
+#define M1 220 //mas para RC
 #define M0 220
 
 void setup() {
@@ -11,14 +11,11 @@ void loop() {
   // put your main code here, to run repeatedly:
   moveForward();
   delay(2000);
-  moveStop();
+//  moveStop();
+//  moveLeft();
+//  delay(1000);
   moveLeft();
-  delay(1000);
-  moveStop();
-  moveRight();
-  delay(1000);
-  moveStop();
-  delay(1000);
+  delay(2000);
 
 }
 
