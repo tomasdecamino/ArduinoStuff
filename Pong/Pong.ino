@@ -1,5 +1,8 @@
 // Tomás de Camino
 // www.funcostarica.org
+
+//Utiliza Feather y Pantalla OLED
+
 // Boton C incrementa velocidad de bola
 // Boton A disminuye velocidad
 // Boton B reinicia juego
