@@ -57,18 +57,6 @@ void setup() {
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(10,10);
   
-#if defined(__AVR_ATmega32U4__) 
-  // Timer interrupts are not suggested, better to use DREQ interrupt!
-  // but we don't have them on the 32u4 feather...
-  musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT); // timer int
-#elif defined(ESP32)
-  // no IRQ! doesn't work yet :/
-#else
-  // If DREQ is on an interrupt pin we can do background
-  // audio playing
-  musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
-#endif
-  
   // Play a file in the background, REQUIRES interrupts!
   Serial.println(F("Playing full track 001"));
   musicPlayer.playFullFile("track001.mp3");
