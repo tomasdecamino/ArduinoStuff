@@ -180,3 +180,8 @@ uint32_t getRemote(){
   }
   return resp;
 }
+
+float getDistance(){
+  updateUtrasonic();
+  return getUltrasonic();
+}

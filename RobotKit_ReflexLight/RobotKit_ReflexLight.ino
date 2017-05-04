@@ -1,3 +1,6 @@
+//Tomas de Camino Beck
+//www.funcostarica.org
+
 #include <RobotKit.h>
 
 void setup() {

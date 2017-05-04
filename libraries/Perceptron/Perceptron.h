@@ -14,7 +14,7 @@ Made for teaching poruposes www.funcostarica.org
 class perceptron
 {
 
-    const float c = 0.008;//constante de aprendizaje
+    float c = 0.00008;//constante de aprendizaje
 
   public:
     //arrays that hold inputs and weights
@@ -40,6 +40,11 @@ class perceptron
         // The weights are picked randomly to start.
         weights[i] = (float)random(-1000, 1000) / 1000;
       }
+    }
+
+    void setTraining(float t){
+      c = t;
+
     }
 
     //training function
