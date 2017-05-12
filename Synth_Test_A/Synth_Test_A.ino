@@ -99,14 +99,16 @@ void setup(void) {
   Serial.begin(9600);
   Serial.println("Hello!");
   dac.begin(0x62);
-
+  pinMode(A0, INPUT);
   Serial.println("Generating a sine wave");
+  TWBR = 12; // 400 khz
 }
 
 void loop(void) {
   uint16_t i;
+  int val = map(analogRead(A0), 0, 1023, 1, 88);
   // Push out the right lookup table, depending on the selected resolution
-  for (i = 0; i < 512; i += 20)
+  for (i = 0; i < 512; i += val)
   {
     dac.setVoltage(pgm_read_word(&(DACLookup_FullSine_9Bit[i])), false);
   }
