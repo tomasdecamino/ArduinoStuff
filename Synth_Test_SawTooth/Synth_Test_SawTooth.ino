@@ -87,7 +87,7 @@ void loop(void) {
   uint16_t i;
   int val = map(analogRead(A0),0,1023,1,88);
   // Push out the right lookup table, depending on the selected resolution
-  for (i = 0; i < 500; i += val)
+  for (i = 0; i < 500; i += 1)
   {
     dac.setVoltage(pgm_read_word(&(DACLookup_FullSine_9Bit[i])), false);
   }
