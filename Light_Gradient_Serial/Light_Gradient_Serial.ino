@@ -42,7 +42,7 @@ void loop(){
     dy = s1 - s3 + 0.5*(s3 - s4 + s2 - s1);
     //Calculation of magnitude and angle to send over serial
     //magnitude
-    Serial.print(sqrt(square(dx)+square(dy)));
+    Serial.print(sqrt(sq(dx)+sq(dy)));
     Serial.print(",");
     //angle in radians
     //To point to light

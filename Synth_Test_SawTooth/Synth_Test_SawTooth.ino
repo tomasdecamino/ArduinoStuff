@@ -80,12 +80,12 @@ void setup(void) {
   dac.begin(0x62);
 
   Serial.println("Generating a sine wave");
-  pinMode(A0,INPUT);
+  pinMode(3,INPUT);
 }
 
 void loop(void) {
   uint16_t i;
-  int val = map(analogRead(A0),0,1023,1,88);
+  int val = map(analogRead(3),0,1023,1,88);
   // Push out the right lookup table, depending on the selected resolution
   for (i = 0; i < 500; i += 1)
   {
