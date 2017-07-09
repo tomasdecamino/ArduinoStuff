@@ -111,7 +111,7 @@ class population
 
 
   private:
-    //activation function
+    //
 
 
 };
