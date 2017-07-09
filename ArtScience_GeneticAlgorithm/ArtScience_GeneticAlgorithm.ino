@@ -1,4 +1,5 @@
 //Tomas de Camino Beck
+//www.funcostarica.org
 
 #include "Chromosome.h"
 #include <Adafruit_CircuitPlayground.h>
