@@ -16,7 +16,7 @@ perceptron colorPerceptron(4);//fourth is for bias
 
 void setup() {
 
-  randomSeed(CircuitPlayground.readCap(3));
+  randomSeed(analogRead(A9));
   colorPerceptron.randomize();//weight initialization
   CircuitPlayground.begin();
 
