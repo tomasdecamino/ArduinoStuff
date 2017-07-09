@@ -31,7 +31,7 @@ class population
       fitnes = new float[n];
     }
 
-    //randomize the initia population
+    //randomize the initial population
     randomize(){
      for (int i = 0; i < n; i++) {
         chromosome[i]= random(255);
@@ -39,13 +39,13 @@ class population
 
     }
 
-    //function to read a particulas gene of chromosome 0
+    //function to read a particular gene of chromosome 0
     byte readGene(int pos){
       return bitRead(chromosome[0],pos);
 
     }
 
-     //function to read a particulas gene of chromosome ind
+     //function to read a particular gene of chromosome ind
     byte readGene(int ind, int pos){
       return bitRead(chromosome[ind],pos);
 
@@ -97,6 +97,7 @@ class population
 
     }  
 
+    //Crossover of best with rest of population
     crossover(){
       for (int i = 0; i <n; i++){
          if(random(1)){
