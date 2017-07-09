@@ -54,16 +54,21 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  //Copia el cromosoma 0 a toda la población
   pop.copyIndividuals();
+  //genera mutaciones en cada gen con 
+  //probabilidad 0.1
   pop.mutateIndividuals(0.1);
+  //aplica recombinación con cromosoma 0
   pop.crossover();
-  //  Serial.println(pop.fitnes);
-
-  //evalua
+  //reevalua fitnes el cromosoma 0
+  //pues pueden haber cambios en el entorno
   fitness(0);
+  //evalua
   evaluate();
   setPixels(0);
+
+  //imprime a serial para ver los cambios
   Serial.println("_________");
   Serial.print(pop.chromosome[0]);
   Serial.print(",");
@@ -72,5 +77,6 @@ void loop() {
   Serial.println(pop.fitnes[0]);
   Serial.println("_________");
 
+  //espera segundo y medio
   delay(1500);
 }

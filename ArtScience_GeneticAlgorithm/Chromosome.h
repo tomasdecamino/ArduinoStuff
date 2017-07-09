@@ -1,4 +1,5 @@
 /*Tomas de Camino Beck
+
 Class Chromosome to use in a genetic algorithm
 It creates a population of chromosomes.  The class
 allows for crhomosome mutation and crossover operations.
