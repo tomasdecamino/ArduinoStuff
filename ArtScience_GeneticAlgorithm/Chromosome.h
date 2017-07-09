@@ -65,14 +65,14 @@ class population
     //** Replicaciton, mutation and crossover functions
 
     //copy chromosome 0
-    copyIndividuals(){
+    copyChromosomes(){
      for (int i = 1; i < n; i++) {
         chromosome[i]= chromosome[0];
       }
 
     }
 
-    mutateIndividuals(float p){
+    mutateChromosomes(float p){
       int prop = int(p * 10000);//to use random as rulete
       for (int i = 1; i < n; i++) {
         for (int j = 0; j < 7; j++)

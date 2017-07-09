@@ -56,10 +56,10 @@ void setup() {
 
 void loop() {
   //Copia el cromosoma 0 a toda la población
-  pop.copyIndividuals();
+  pop.copyChromosomes();
   //genera mutaciones en cada gen con 
   //probabilidad 0.1
-  pop.mutateIndividuals(0.1);
+  pop.mutateChromosomes(0.1);
   //aplica recombinación con cromosoma 0
   pop.crossover();
   //reevalua fitnes el cromosoma 0
