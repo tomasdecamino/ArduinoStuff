@@ -6,6 +6,8 @@
 
 #define N 10
 
+int luzActual, luzAnterior;
+
 //crea la poblacion
 population pop(N);
 
@@ -23,22 +25,15 @@ void setPixels(int a) {
 //Calcula el fitnes basado en la cantidad de luz (maximiza)
 //y la cantidad de leds (minimiza)
 void fitness(int a) {
-  pop.fitnes[a] = 0.7 * float(CircuitPlayground.lightSensor()) - 0.3 * float(pop.countBits(a));
-  Serial.print(pop.countBits(a));
+  pop.fitness[a] = 0.7 * float(CircuitPlayground.lightSensor()) - 0.3 * float(pop.countBits(a));
 }
 
 //Evalua cada cromosoma para ver cual es mejor
 //y fija el cromosoma 0 a ese estado
 void evaluate() {
-  for (int i = 1; i < pop.n; i++) {
+  for (int i = 0; i < pop.n; i++) {
     setPixels(i);
     fitness(i);
-    Serial.print(",");
-    Serial.println(pop.fitnes[i]);
-    if (pop.fitnes[0] < pop.fitnes[i]) {
-      pop.chromosome[0] = pop.chromosome[i];
-      pop.fitnes[0] = pop.fitnes[i];
-    }
     delay(10);
   }
 }
@@ -49,24 +44,31 @@ void setup() {
   CircuitPlayground.begin();
   CircuitPlayground.clearPixels();
   Serial.begin(9600);
-  //pop.randomize();
-  //pop.chromosome[0] = 0;
-  pop.fitnes[0] = 0;
+  luzActual = CircuitPlayground.lightSensor();
 }
 
 void loop() {
   //Copia el cromosoma 0 a toda la población
   pop.copyChromosomes();
-  //genera mutaciones en cada gen con 
+
+  //genera mutaciones en cada gen con
   //probabilidad 0.1
   pop.mutateChromosomes(0.1);
+
   //aplica recombinación con cromosoma 0
-  pop.crossover();
-  //reevalua fitnes el cromosoma 0
+  pop.crossover(0.5);
+
+  //reevalua fitnes el cromosoma 0 si hay cambios
+  //importantes en la cantidad de luz
   //pues pueden haber cambios en el entorno
-  fitness(0);
   //evalua
   evaluate();
+  pop.sort();
+
+  for (int i = 0; i < pop.n; i++) {
+    Serial.println(pop.fitness[i]);
+  }
+
   setPixels(0);
 
   //imprime a serial para ver los cambios
@@ -75,7 +77,7 @@ void loop() {
   Serial.print(",");
   Serial.print(pop.countBits(0));
   Serial.print("|");
-  Serial.println(pop.fitnes[0]);
+  Serial.println(pop.fitness[0]);
   Serial.println("_________");
 
   //espera segundo y medio

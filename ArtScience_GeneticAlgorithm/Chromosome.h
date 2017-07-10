@@ -22,14 +22,14 @@ class population
   public:
     //
     byte* chromosome;
-    float* fitnes;
+    float* fitness;
     int n; //numero de entradas
 
     //creates a population of chromosomes
     population(int ind) {
       n = ind;
       chromosome = new byte[n];
-      fitnes = new float[n];
+      fitness = new float[n];
     }
 
     //randomize the initial population
@@ -38,6 +38,27 @@ class population
         chromosome[i] = random(255);
       }
 
+    }
+
+    //uses bubble sort, sorting by fitnes
+    void sort()
+    {
+      int i, j;
+      for (i = 0; i < n - 1; i++) {
+        // Last i elements are already in place
+        for (j = 0; j < n - i - 1; j++) {
+          if (fitness[j] < fitness[j + 1]) {
+            //swap fitnes
+            float f = fitness[j];
+            fitness[j]=fitness[j + 1];
+            fitness[j + 1]=f;
+            //swap chromosome
+            byte ind = chromosome[j];
+            chromosome[j]=chromosome[j + 1];
+            chromosome[j + 1]=ind;            
+          }
+        }
+      }
     }
 
     //function to read a particular gene of chromosome 0
@@ -98,11 +119,12 @@ class population
 
     }
 
+
     //Crossover of best with rest of population
     crossover() {
       for (int i = 0; i < n; i++) {
         if (random(1)) {
-          crossover(0, i);
+          crossover(i);
         }
       }
 
@@ -113,7 +135,9 @@ class population
       int prop = int(p * 10000);//to use random as rulete
       for (int i = 0; i < n; i++) {
         if (random(10000) < prop) {
+          byte indA = chromosome[0];
           crossover(0, i);
+          chromosome[0] = indA;
         }
       }
 
