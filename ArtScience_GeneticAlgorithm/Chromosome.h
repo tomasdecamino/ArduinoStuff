@@ -10,8 +10,10 @@
   Ussage:
   1. create a objet class chromosome initialize population of n
   2. Create a fitness and evaluation functions (in main code)
-  3. Choose best fit (in main code)
   3. use mutation and crossover over class crhomosome
+  4. Evaluate fitness
+  5. use sort to rank, highest fitness in chromosome 0
+  6. Choose best fit (in main code) then loop to 3
 
   Made for teaching poruposes www.funcostarica.org
 */
