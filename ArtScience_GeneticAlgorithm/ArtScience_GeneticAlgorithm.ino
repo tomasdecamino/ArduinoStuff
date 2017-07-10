@@ -26,8 +26,7 @@ void fitness(int a) {
   pop.fitness[a] = 0.7 * float(CircuitPlayground.lightSensor()) - 0.3 * float(pop.countBits(a));
 }
 
-//Evalua cada cromosoma para ver cual es mejor
-//y fija el cromosoma 0 a ese estado
+//Evalua cada cromosoma
 void evaluate() {
   for (int i = 0; i < pop.n; i++) {
     setPixels(i);
@@ -43,7 +42,8 @@ void setup() {
   CircuitPlayground.begin();
   CircuitPlayground.clearPixels();
   Serial.begin(9600);
-  pop.mutateChromosomes(0.5);
+  //inicia con una población aleatoria
+  pop.mutateChromosomes(0.5,0);
 }
 
 void loop() {
@@ -55,27 +55,14 @@ void loop() {
   //probabilidad 0.1
   pop.mutateChromosomes(0.1, 1);
 
-  //reevalua fitnes el cromosoma 0 si hay cambios
-  //importantes en la cantidad de luz
-  //pues pueden haber cambios en el entorno
   //evalua
   evaluate();
+
+  //Ordena los cromosomas de mayr a menor fitness
   pop.sort();
-  //  Serial.println("C_________");
-  //  for (int i = 0; i < pop.n; i++) {
-  //    Serial.println(pop.chromosome[i]);
-  //  }
 
+  //prende los leds que correspoden al mejor fitness
   setPixels(0);
-
-  //imprime a serial para ver los cambios
-  //  Serial.println("_________");
-  //  Serial.print(pop.chromosome[0]);
-  //  Serial.print(",");
-  //  Serial.print(pop.countBits(0));
-  //  Serial.print("|");
-  //  Serial.println(pop.fitness[0]);
-  //  Serial.println("_________");
 
   //espera segundo y medio
   delay(1500);
