@@ -50,12 +50,12 @@ class population
           if (fitness[j] < fitness[j + 1]) {
             //swap fitnes
             float f = fitness[j];
-            fitness[j]=fitness[j + 1];
-            fitness[j + 1]=f;
+            fitness[j] = fitness[j + 1];
+            fitness[j + 1] = f;
             //swap chromosome
             byte ind = chromosome[j];
-            chromosome[j]=chromosome[j + 1];
-            chromosome[j + 1]=ind;            
+            chromosome[j] = chromosome[j + 1];
+            chromosome[j + 1] = ind;
           }
         }
       }
@@ -106,39 +106,41 @@ class population
 
     }
 
+    //mutate chromosomes, starting from first
+    mutateChromosomes(float p, int first) {
+      int prop = int(p * 10000);//to use random as rulete
+      for (int i = first; i < n; i++) {
+        for (int j = 0; j < 7; j++)
+        {
+          if (random(10000) < prop)
+            //changes bit
+            bitWrite(chromosome[i], j, !bitRead(chromosome[i], j));
+        }
+      }
 
-    crossover(int a, int b) {
-      byte cutPos = random(7);
+    }
+
+
+    byte crossover(int a, int b) {
+      byte cutPos1 = random(4);
+      byte cutPos2 = random(4, 7);
 
       byte indA = chromosome[a];
-      for (int i = 0; i < cutPos; i++)
+      for (int i = cutPos1; i < cutPos2; i++)
       {
-        bitWrite(chromosome[a], i, bitRead(chromosome[b], i));
-        bitWrite(chromosome[b], i, bitRead(indA, i));
+        bitWrite(indA, i, bitRead(chromosome[b], i));
       }
-
+      return indA;
     }
 
-
-    //Crossover of best with rest of population
-    crossover() {
-      for (int i = 0; i < n; i++) {
-        if (random(1)) {
-          crossover(i);
-        }
-      }
-
-    }
 
     //crosover with 0 with some probability p
-    crossover(float p) {
-      int prop = int(p * 10000);//to use random as rulete
-      for (int i = 0; i < n; i++) {
-        if (random(10000) < prop) {
-          byte indA = chromosome[0];
-          crossover(0, i);
-          chromosome[0] = indA;
-        }
+    copyCrossover(int m) {
+      int r = 0;
+      for (int i = m; i < n; i++) {
+        int cA = random(m);
+        int cB = random(m);
+        chromosome[i] = crossover(cA, cB);
       }
 
     }
@@ -150,3 +152,4 @@ class population
 
 
 };
+

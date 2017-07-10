@@ -6,8 +6,6 @@
 
 #define N 10
 
-int luzActual, luzAnterior;
-
 //crea la poblacion
 population pop(N);
 
@@ -33,8 +31,9 @@ void fitness(int a) {
 void evaluate() {
   for (int i = 0; i < pop.n; i++) {
     setPixels(i);
+    //gives LED time to turn on
+    delay(30);
     fitness(i);
-    delay(10);
   }
 }
 
@@ -44,19 +43,17 @@ void setup() {
   CircuitPlayground.begin();
   CircuitPlayground.clearPixels();
   Serial.begin(9600);
-  luzActual = CircuitPlayground.lightSensor();
+  pop.mutateChromosomes(0.5);
 }
 
 void loop() {
-  //Copia el cromosoma 0 a toda la población
-  pop.copyChromosomes();
+ 
+  //aplica recombinación con cromosoma 0 a 2 y los copia en una población
+  pop.copyCrossover(2);
 
   //genera mutaciones en cada gen con
   //probabilidad 0.1
-  pop.mutateChromosomes(0.1);
-
-  //aplica recombinación con cromosoma 0
-  pop.crossover(0.5);
+  pop.mutateChromosomes(0.1, 1);
 
   //reevalua fitnes el cromosoma 0 si hay cambios
   //importantes en la cantidad de luz
@@ -64,22 +61,23 @@ void loop() {
   //evalua
   evaluate();
   pop.sort();
-
-  for (int i = 0; i < pop.n; i++) {
-    Serial.println(pop.fitness[i]);
-  }
+  //  Serial.println("C_________");
+  //  for (int i = 0; i < pop.n; i++) {
+  //    Serial.println(pop.chromosome[i]);
+  //  }
 
   setPixels(0);
 
   //imprime a serial para ver los cambios
-  Serial.println("_________");
-  Serial.print(pop.chromosome[0]);
-  Serial.print(",");
-  Serial.print(pop.countBits(0));
-  Serial.print("|");
-  Serial.println(pop.fitness[0]);
-  Serial.println("_________");
+  //  Serial.println("_________");
+  //  Serial.print(pop.chromosome[0]);
+  //  Serial.print(",");
+  //  Serial.print(pop.countBits(0));
+  //  Serial.print("|");
+  //  Serial.println(pop.fitness[0]);
+  //  Serial.println("_________");
 
   //espera segundo y medio
   delay(1500);
 }
+
