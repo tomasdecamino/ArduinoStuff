@@ -93,6 +93,7 @@ class population
 
     }
 
+    //mutate genes with probability p
     mutateChromosomes(float p) {
       int prop = int(p * 10000);//to use random as rulete
       for (int i = 1; i < n; i++) {
@@ -106,7 +107,7 @@ class population
 
     }
 
-    //mutate chromosomes, starting from first
+    //mutate genes with probability p, starting from first
     mutateChromosomes(float p, int first) {
       int prop = int(p * 10000);//to use random as rulete
       for (int i = first; i < n; i++) {
@@ -120,7 +121,8 @@ class population
 
     }
 
-
+    //crossover between cromosome a and b
+    //returns a new chromosome
     byte crossover(int a, int b) {
       byte cutPos1 = random(4);
       byte cutPos2 = random(4, 7);
@@ -134,7 +136,8 @@ class population
     }
 
 
-    //crosover with 0 with some probability p
+    //crossover betwwen de first m chromosomes
+    //copies the result to the rest of the population
     copyCrossover(int m) {
       int r = 0;
       for (int i = m; i < n; i++) {
