@@ -65,6 +65,6 @@ void loop() {
   setPixels(0);
 
   //espera segundo y medio
-  delay(1500);
+  delay(3000);
 }
 
