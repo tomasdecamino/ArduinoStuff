@@ -7,7 +7,7 @@
 
 int circleSize = 1;
 
-SSD1306 display(4);
+//SSD1306 display(4);
 
 void setup() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3c); // inicializa el OLED
