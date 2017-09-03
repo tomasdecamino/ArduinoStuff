@@ -6,10 +6,10 @@
 #include <Adafruit_MCP4725.h>
 
 #define N 10
-#define POT1 A0
-#define POT2 A3
-#define POT3 A1
-#define MIC1 A2
+#define POT1 A1
+#define POT2 A2
+#define POT3 A3
+#define MIC1 A0
 #define D 200
 
 
