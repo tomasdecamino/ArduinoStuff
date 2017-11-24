@@ -7,8 +7,6 @@
 
 #include "Perceptron.h"
 #include <Adafruit_CircuitPlayground.h>
-#include <Wire.h>
-#include <SPI.h>
 
 
 //we will use one perceptron with 3 inputs (Red, green, blue)

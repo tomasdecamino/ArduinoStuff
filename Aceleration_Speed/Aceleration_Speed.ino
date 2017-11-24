@@ -14,8 +14,7 @@ void setup() {
 }
 
 void loop() {
-  if(CircuitPlayground.leftButton()) on=!on;
-  if (on) {
+  if (CircuitPlayground.slideSwitch()) {
     Serial.print(CircuitPlayground.motionX());
     Serial.print(",");
     Serial.print(CircuitPlayground.motionY());
@@ -26,7 +25,7 @@ void loop() {
   }else{
     Serial.println("**");
   }
-  delay(50);
+ delay(100);
 
 }
 
