@@ -1,5 +1,6 @@
 #define CENTERL 91
 #define CENTERR 89
+#define SOFFSET 70
 
 int garraPin = 9;
 int motorLpin = 2;
@@ -29,23 +30,23 @@ void adeleBegin() {
 
 
 void forward() {
-  motorL.write(180);
-  motorR.write(0);//calibrate stop
+  motorL.write(180-SOFFSET);
+  motorR.write(0+SOFFSET);//calibrate stop
 }
 
 void backward() {
-  motorL.write(0);
-  motorR.write(180);//calibrate stop
+  motorL.write(0+SOFFSET);
+  motorR.write(180-SOFFSET);//calibrate stop
 }
 
 void left() {
-  motorL.write(0);
-  motorR.write(0);//calibrate stop
+  motorL.write(0+SOFFSET);
+  motorR.write(0+SOFFSET);//calibrate stop
 }
 
 void right() {
-  motorL.write(180);
-  motorR.write(180);//calibrate stop
+  motorL.write(180-SOFFSET);
+  motorR.write(180-SOFFSET);//calibrate stop
 }
 
 void closeGarra(){

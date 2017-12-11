@@ -122,12 +122,23 @@ void setup()
   pinMode(LED, OUTPUT);
   pinMode(2, INPUT_PULLUP);
   pinMode(3, INPUT_PULLUP);
-  MIDI.begin();
+  MIDI.begin(MIDI_CHANNEL_OMNI);
   //Serial.begin(9600);
+  MIDI.setHandleNoteOn(MyHandleNoteOn);
+  MIDI.setHandleNoteOff(MyHandleNoteOff);
+}
+
+void MyHandleNoteOn(byte channel, byte pitch, byte velocity) { 
+  digitalWrite(LED,HIGH);  //Turn LED on
+}
+
+void MyHandleNoteOff(byte channel, byte pitch, byte velocity) { 
+  digitalWrite(LED,LOW);  //Turn LED off
 }
 
 void loop()
 {
+  MIDI.read();
   digitalWrite(LED, LOW);
   int tonic = 8;
   int time = map(analogRead(A0), 0, 1023, 50, 1000);

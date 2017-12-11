@@ -10,7 +10,7 @@ Adafruit_MCP4725 dac;
 float x = 0;
 
 #define POT1 A0
-#define POT2 A3
+#define POT2 A1
 
 void setup(void) {
   Serial.begin(9600);

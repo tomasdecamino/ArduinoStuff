@@ -37,7 +37,7 @@ void setup(void) {
 
   Serial.println("Generating a sine wave");
   pinMode(A0, INPUT);
-  pinMode(A3, INPUT);
+  pinMode(A1, INPUT);
 }
 
 void loop(void) {

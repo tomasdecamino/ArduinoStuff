@@ -26,7 +26,7 @@ void setup() {
   CircuitPlayground.clearPixels();
   CircuitPlayground.setPixelColor(0, CircuitPlayground.strip.Color(128, 0, 128));
   CircuitPlayground.setPixelColor(9, CircuitPlayground.strip.Color(128, 0, 128));
-
+  openGarra();
   SERIALPORT.begin(9600); //Set up Bluetooth
   SERIALPORT.println("Starting...");
 
@@ -37,6 +37,7 @@ void loop() {
     digitalWrite(13, HIGH);
     cmd = SERIALPORT.readStringUntil('\n');//
     SERIALPORT.println(cmd + " recibido...");
+    SERIALPORT.flush();
     digitalWrite(13, LOW);
   }
   char inChar;// variable for current command
@@ -48,19 +49,19 @@ void loop() {
         forward();
         //  CircuitPlayground.setPixelColor(0, CircuitPlayground.strip.Color(100, 200, 0));
         //  CircuitPlayground.setPixelColor(9, CircuitPlayground.strip.Color(100, 200, 0));
-        delay(750);
+        delay(1000);
         break;
       case 'B'://move backward
         backward();
-        delay(750);
+        delay(1000);
         break;
       case 'L'://move left
         left();
-        delay(350);
+        delay(680);
         break;
       case 'R'://move right
         right();
-        delay(350);
+        delay(680);
         break;
       case 'O'://open claw
         openGarra();
@@ -74,6 +75,15 @@ void loop() {
         CircuitPlayground.playTone(440, 250);
         CircuitPlayground.playTone(349, 125);
         CircuitPlayground.playTone(523, 250);
+        break;
+      case 'P':
+        for (int i = 0; i < 10; i++) {
+          CircuitPlayground.setPixelColor(i, CircuitPlayground.colorWheel(25 * i));
+          delay(150);
+        }
+        CircuitPlayground.clearPixels();
+        CircuitPlayground.setPixelColor(0, CircuitPlayground.strip.Color(128, 0, 128));
+        CircuitPlayground.setPixelColor(9, CircuitPlayground.strip.Color(128, 0, 128));
         break;
     }
     stopServos();

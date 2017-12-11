@@ -1,5 +1,24 @@
-#include <MIDI.h>
+/**************************************************************************/
+/*!
+    @file     sinewave.pde
+    @author   Adafruit Industries
+    @license  BSD (see license.txt)
+
+    This example will generate a sine wave with the MCP4725 DAC.
+
+    This is an example sketch for the Adafruit MCP4725 breakout board
+    ----> http://www.adafruit.com/products/935
+
+    Adafruit invests time and resources providing this open source code,
+    please support Adafruit and open-source hardware by purchasing
+    products from Adafruit!
+*/
+/**************************************************************************/
+
 #include <Wire.h>
+#include <MIDI.h>
+#include <Adafruit_MCP4725.h>
+
 
 #define NOTE_B0  31
 #define NOTE_C1  33
@@ -107,48 +126,77 @@ static const uint16_t sNotePitches[] = {
 
 
 
+Adafruit_MCP4725 dac;
+float s = 0;
+
+// Set this value to 9, 8, 7, 6 or 5 to adjust the resolution
+#define DAC_RESOLUTION    (9)
+#define POT1 A0
+#define POT2 A1
+#define LED 7
+
+int val, val2;
+float x = 0;
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-#define LED 7   		    // LED pin on Arduino Uno
-
-int p = 0;
-
-
-void setup()
-{
-  pinMode(LED, OUTPUT);
-  pinMode(2, INPUT_PULLUP);
-  pinMode(3, INPUT_PULLUP);
-  MIDI.begin(MIDI_CHANNEL_OMNI);
+void setup(void) {
   //Serial.begin(9600);
+  Serial.println("Hello!");
+  dac.begin(0x62);
+
+  //Serial.println("Generating a sine wave");
+  pinMode(3, INPUT);
+
+  MIDI.begin(MIDI_CHANNEL_OMNI);
   MIDI.setHandleNoteOn(MyHandleNoteOn);
   MIDI.setHandleNoteOff(MyHandleNoteOff);
+
 }
 
 void MyHandleNoteOn(byte channel, byte pitch, byte velocity) {
   //E2 G2 A2 G2 D3 C3 D3 E3
   digitalWrite(LED, LOW); //Turn LED on
-  MIDI.sendNoteOn(pitch, velocity, 1);
-
+  // MIDI.sendNoteOn(pitch, velocity, 1);
+  val2 = map(pitch,0,4978,1000000,0);
+  val =100;
 }
 
 void MyHandleNoteOff(byte channel, byte pitch, byte velocity) {
   digitalWrite(LED, HIGH); //Turn LED off
   MIDI.sendNoteOff(pitch, velocity, 1);
+  //val2=0;
+  val =0;
   // MIDI.sendNoteOff(pitch + p, velocity, 1);
 }
 
-void loop()
-{
+
+void loop(void) {
+  //val2 = map(analogRead(POT1), 0, 1023, 1, 16000);
   MIDI.read();
-  int tonic = 8;
-  int time = map(analogRead(A0), 0, 1023, 50, 1000);
-  p = map(analogRead(A1), 0, 1023, 100, 1500);
+  //val = analogRead(POT2);
 
-  //pattern(p,time, NOTE_C5);
-  //E2 G2 A2 G2 D3 C3 D3 E3
+  // Push out the right lookup table, depending on the selected resolution
 
+  //dac.setVoltage(wave(val), false);
+
+
+
+  s += 0.01;
+  play(1, 1);
+  //Serial.println(val2);
 }
+
+
+void play(int pitch, int tempo) {
+  for (int i = 0; i < tempo; i++) {
+    int w = round((sin(pitch * x) + 1) * 2048);
+    dac.setVoltage(w, false);
+    //Serial.println(val2);
+    x += 0.01;//pitch;
+    delayMicroseconds(val2);
+  }
+}
+
 
 
