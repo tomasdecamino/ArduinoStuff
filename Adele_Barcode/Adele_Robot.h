@@ -74,6 +74,19 @@ void stayInside() {//Stays inside line
   }
 }
 
+void followLine() {//simple line follower
+  if (digitalRead(RIGHTIR)) {
+    right();
+    delay(20);
+  }
+  if (digitalRead(LEFTIR)) {
+    left();
+    delay(20);
+  }
+  forward();
+  delay(10);
+}
+
 void randomMove(int t) {
   int choice = random(4);
   switch (choice) {
